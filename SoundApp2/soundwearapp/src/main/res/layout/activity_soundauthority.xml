@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/purple30"
+    android:padding="10dp"
+    tools:context=".SoundAuthorityActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="모바일 소리권한 액티비티"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+</androidx.wear.widget.BoxInsetLayout>
