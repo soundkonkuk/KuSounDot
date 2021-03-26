@@ -1,2 +1,3 @@
+include ':soundwearapp'
 include ':app'
 rootProject.name = "SoundApp"
