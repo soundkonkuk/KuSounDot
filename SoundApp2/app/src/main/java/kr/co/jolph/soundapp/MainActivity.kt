@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private val fra_home = home()
     private val fra_camera = camera()
     private val fra_settings = settings()
+    private val fra_watch = watch()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,10 @@ class MainActivity : AppCompatActivity() {
                     R.id.mThird ->{
                         changeFrag(fra_settings)
                     }
+                    R.id.mFourth ->{
+                        changeFrag(fra_watch)
+                    }
+
                 }
                 true
             }
