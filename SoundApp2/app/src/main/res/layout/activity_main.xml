@@ -26,6 +26,14 @@
 
     </FrameLayout>
 
+    <Button
+        android:id="@+id/setcolorbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="실시간소리감지설정"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
         android:layout_width="match_parent"
