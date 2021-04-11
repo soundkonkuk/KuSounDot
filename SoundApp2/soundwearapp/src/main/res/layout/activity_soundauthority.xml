@@ -7,11 +7,57 @@
     android:padding="10dp"
     tools:context=".SoundAuthorityActivity">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="모바일 소리권한 액티비티"
-        android:gravity="center"
-        android:textColor="@color/white"/>
+        android:padding="@dimen/inner_frame_layout_padding"
+        >
+        <Button
+            android:id="@+id/phone_permission_button"
+            android:layout_width="90dp"
+            android:layout_height="20dp"
+            android:textSize="9sp"
+            android:text="Phone Permission"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@color/purple100"
+            android:layout_gravity="center"
+            android:layout_marginTop="57dp"
+            android:onClick="onClickPhonePermission" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="Mobile Sound Authority Setting"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text_permission_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="37dp"
+            android:text="*스마트폰의 소리권한을 설정할 수 있습니다.*"
+            android:textSize="9sp"
+            android:textColor="@color/purple200"
+            />
+
+        <TextView
+            android:id="@+id/output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:textColor="@color/purple100"
+            android:text="State"
+            android:textSize="7sp"
+            />
+
+
+    </FrameLayout>
 
 </androidx.wear.widget.BoxInsetLayout>

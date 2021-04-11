@@ -13,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoTitleBar">
+        <service
+            android:name=".IncomingRequestWearService"
+            android:enabled="true"
+            android:exported="true"></service>
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
@@ -24,6 +28,9 @@
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".WearMainActivity"
@@ -37,6 +44,7 @@
         <activity android:name=".ExplainWatchSettingActivity" android:label="Explain"></activity>
         <activity android:name=".MobileAppCheckActivity" android:label="MobileAppCheck"></activity>
         <activity android:name=".SoundAuthorityActivity" android:label="SoundAuthority"></activity>
+        <activity android:name=".RequestPermissionOnPhoneActivity" android:label="RequestPermissionOnPhoneActivity"></activity>
 
     </application>
 
