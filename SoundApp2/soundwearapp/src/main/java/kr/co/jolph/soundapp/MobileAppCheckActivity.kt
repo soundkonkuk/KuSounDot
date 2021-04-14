@@ -117,12 +117,15 @@ class MobileAppCheckActivity : FragmentActivity() ,
             mInformationTextView!!.text = installMessage
             mRemoteOpenButton!!.visibility = View.INVISIBLE
 
-            //웨어 앱에서 해당 액티비티 종료 후
-            finish()
+            //소리권한 액티비티로 이동 + 찾은 Phone Node도 전달
+            val phoneNode: String = mAndroidPhoneNodeWithApp!!.id
 
-            //소리권한 액티비티로 이동
-            val soundauthorityIntent: Intent = Intent(this@MobileAppCheckActivity,SoundAuthorityActivity::class.java )
-            startActivity(soundauthorityIntent)
+            val soundIntent: Intent = Intent(this@MobileAppCheckActivity, SoundAuthorityActivity::class.java)
+            soundIntent.putExtra("Phone Node", phoneNode)
+            startActivity(soundIntent)
+
+            //웨어 앱에서 해당 액티비티 종료
+            finish()
 
         } else {
             Log.d(TAG, Missing_All_Message)
