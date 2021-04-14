@@ -30,10 +30,8 @@ class PhonePermissionRequestActivity : AppCompatActivity(),
         Log.d(TAG, "onClickApprovePermissionRequest()")
 
         // On 23+ (M+) devices, External storage permission not granted. Request permission.
-        ActivityCompat.requestPermissions(
-            this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_READ_STORAGE
-        )
+        val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        ActivityCompat.requestPermissions(this, permissions,PERMISSION_REQUEST_READ_STORAGE)
     }
 
     fun onClickDenyPermissionRequest(view: View?) {
