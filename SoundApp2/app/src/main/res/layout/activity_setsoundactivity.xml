@@ -17,30 +17,24 @@
         android:textColor="#000"
         android:textSize="32dp"
         android:textStyle="bold" />
+
     <Button
         android:id="@+id/button_start_recording"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
         android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="32dp"
-        android:layout_marginBottom="32dp"
-        android:layout_centerVertical="true"/>
-    <Button
-        android:id="@+id/button_pause_recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="28dp"
+        android:text="실시간소리녹음on" />
+
     <Button
         android:id="@+id/button_stop_recording"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="32dp"
-        android:layout_marginRight="32dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="34dp"
+        android:text="실시간소리녹음off" />
 </RelativeLayout>
