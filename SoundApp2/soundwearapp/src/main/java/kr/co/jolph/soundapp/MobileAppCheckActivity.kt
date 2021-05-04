@@ -29,7 +29,7 @@ class MobileAppCheckActivity : FragmentActivity() ,
         private const val Missing_All_Message = "${Welcom_Message}핸드폰에 소리녹음 모바일 앱이 설치되어있지 않습니다.\n 아래 버튼을 클릭해서 모바일 앱을 설치해 주세요!"
         private const val Install_WearApp_Message = "$Welcom_Message(%s) 핸드폰에 모바일 앱이 설치되었습니다!\n"
         //CAPABILITY_PHONE_APP-> Mobile App > values > wear.xml
-        private const val CAPABILITY_PHONE_APP = "verify_remote_phone_app"
+        private const val CAPABILITY_PHONE_APP = "sound_phone_app"
         // Links to install mobile app for both Android (Play Store) and iOS.
         // TODO: Replace with your links/packages.
         private const val ANDROID_MARKET_APP_URI = "market://details?id=com.example.android.wearable.wear.wearverifyremoteapp"
@@ -117,12 +117,15 @@ class MobileAppCheckActivity : FragmentActivity() ,
             mInformationTextView!!.text = installMessage
             mRemoteOpenButton!!.visibility = View.INVISIBLE
 
-            //웨어 앱에서 해당 액티비티 종료 후
-            finish()
+            //소리권한 액티비티로 이동 + 찾은 Phone Node도 전달
+            val phoneNode: String = mAndroidPhoneNodeWithApp!!.id
 
-            //소리권한 액티비티로 이동
-            val soundauthorityIntent: Intent = Intent(this@MobileAppCheckActivity,SoundAuthorityActivity::class.java )
-            startActivity(soundauthorityIntent)
+            val soundIntent: Intent = Intent(this@MobileAppCheckActivity, SoundAuthorityActivity::class.java)
+            soundIntent.putExtra("Phone Node", phoneNode)
+            startActivity(soundIntent)
+
+            //웨어 앱에서 해당 액티비티 종료
+            finish()
 
         } else {
             Log.d(TAG, Missing_All_Message)
