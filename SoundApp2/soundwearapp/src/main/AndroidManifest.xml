@@ -3,7 +3,6 @@
     package="kr.co.jolph.soundapp">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
@@ -13,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoTitleBar">
+
         <service
             android:name=".IncomingRequestWearService"
             android:enabled="true"
             android:exported="true"></service>
+
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
