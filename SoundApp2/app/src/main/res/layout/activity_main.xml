@@ -25,7 +25,41 @@
         android:layout_weight="1">
 
     </FrameLayout>
-
+    <Button
+        android:id="@+id/retrofitimageexample5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레트로핏 파일 서버전송 실행하기 ver5"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
+    <Button
+        android:id="@+id/retrofitimageexample4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레트로핏 파일 서버전송 실행하기 ver4"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
+    <Button
+        android:id="@+id/retrofitimageexample3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레트로핏 파일 서버전송 실행하기 ver3"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
+    <Button
+        android:id="@+id/retrofitimageexample2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레트로핏 파일 서버전송 실행하기 ver2"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
+    <Button
+        android:id="@+id/retrofitimageexample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레트로핏 파일 서버전송 실행하기"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
     <Button
         android:id="@+id/setcolorbutton"
         android:layout_width="match_parent"

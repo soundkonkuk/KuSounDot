@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bd79901-854c-4fed-b632-6803b9165cf5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/SoundApp2/app/src/main/java/kr/co/jolph/soundapp/home.kt" beforeDir="false" afterPath="$PROJECT_DIR$/SoundApp2/app/src/main/java/kr/co/jolph/soundapp/home.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SoundApp2/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SoundApp2/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SoundApp2/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SoundApp2/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +20,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/SoundApp2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="SvnConfiguration">
@@ -39,9 +37,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="566" y="216" key="FileChooserDialogImpl" timestamp="1619143451867">
+    <state x="566" y="216" key="FileChooserDialogImpl" timestamp="1620306484566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="566" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1619143451867" />
+    <state x="566" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1620306484566" />
   </component>
 </project>

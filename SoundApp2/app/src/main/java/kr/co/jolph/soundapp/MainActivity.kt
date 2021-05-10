@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.time.seconds
 import android.content.Intent
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +34,19 @@ class MainActivity : AppCompatActivity() {
     }
     private fun init3(){
         setcolorbutton.setOnClickListener {
-            val intent= Intent(this, Setsoundactivity::class.java)
+           val intent= Intent(this, Setsooundactivitynew::class.java)
             startActivity(intent)
         }
+        retrofitimageexample.setOnClickListener {
+            val intent= Intent(this, RetrofitSendFileExample::class.java)
+            startActivity(intent)
+        }
+//        retrofitimageexample3?.setOnClickListener {
+//            val intent= Intent(this, Setsooundactivitynew::class.java)
+//            startActivity(intent)
+//        }
+
+
     }
     private fun initNaviBar(){
 

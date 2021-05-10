@@ -96,7 +96,10 @@ class watch : Fragment(), CapabilityClient.OnCapabilityChangedListener
         super.onCreate(savedInstanceState)
 
         information_text_view?.text = Check_Message
-        remote_open_button?.setOnClickListener { openPlayStoreOnWearDevicesWithoutApp() }
+        remote_open_button?.setOnClickListener {
+            //openPlayStoreOnWearDevicesWithoutApp()
+
+        }
 
         //Message
         val intent = Intent(activity, MainActivity::class.java)

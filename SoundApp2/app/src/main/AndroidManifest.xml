@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="kr.co.jolph.soundapp">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="kr.co.jolph.soundapp">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,6 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundApp">
+        <activity android:name=".RetrofitSendFileExample5"></activity>
+        <activity android:name=".RetrofitSendFileExample4" />
+        <activity android:name=".RetrofitSendFileExample3" />
+        <activity android:name=".Setsooundactivitynew" />
+        <activity android:name=".RetrofitSendFileExample" />
         <activity android:name=".Loginactivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,22 +31,11 @@
             android:name=".IncomingRequestPhoneService"
             android:enabled="true"
             android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
 
-                <data
-                    android:host="*"
-                    android:pathPrefix="/"
-                    android:scheme="wear" />
-            </intent-filter>
         </service>
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Setsoundactivity" />
     </application>

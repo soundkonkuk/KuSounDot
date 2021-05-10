@@ -25,8 +25,7 @@ import java.util.*
 import kotlin.concurrent.timerTask
 
 @Suppress("DEPRECATION")
-
-class Setsoundactivity : AppCompatActivity() {
+class Setsooundactivitynew : AppCompatActivity() {
 
     private var output: String? = null
     private var mediaRecorder: MediaRecorder? = null
@@ -37,10 +36,8 @@ class Setsoundactivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        setContentView(R.layout.activity_setsooundactivitynew)
         button_start_recording.setOnClickListener {
             println("hello!"+startnumber)
             if (ContextCompat.checkSelfPermission(this,
@@ -64,13 +61,12 @@ class Setsoundactivity : AppCompatActivity() {
                     state = false
 
                     val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    ActivityCompat.requestPermissions(this@Setsoundactivity, permissions,0)
+                    ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
 
                     mediaRecorder = MediaRecorder()
                     var dateAndtime: LocalDateTime = LocalDateTime.now()
                     val onlyDate: LocalDate = LocalDate.now()
-                   // output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
-                    output = "${externalCacheDir!!.absolutePath}/${startnumber}.wav"
+                    output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -112,7 +108,6 @@ class Setsoundactivity : AppCompatActivity() {
             startnumber++
             //output = Environment.getExternalStorageDirectory().absolutePath + "/recording.mp3"
             //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
-           // output = "${externalCacheDir!!.absolutePath}/${startnumber}.wav"
             output = "${externalCacheDir!!.absolutePath}/${startnumber}.wav"
             mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
