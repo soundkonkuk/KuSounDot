@@ -1,59 +1,38 @@
 package kr.co.jolph.soundapp
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [camera.newInstance] factory method to
- * create an instance of this fragment.
- */
+//http://192.168.59.150:8090/?action=stream
 class camera : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view: View = inflater.inflate(kr.co.jolph.soundapp.R.layout.fragment_camera, container, false)
+
+        val mWebView = view.findViewById(kr.co.jolph.soundapp.R.id.webView1) as WebView
+        mWebView.loadUrl("http://192.168.224.150:8090/?action=stream")
+
+        val webSettings = mWebView.getSettings()
+        webSettings.setJavaScriptEnabled(true)
+        webSettings.setSupportMultipleWindows(false)// 새창 띄우기 허용 여부
+        webSettings.javaScriptCanOpenWindowsAutomatically = false // 자바스크립트 새창 띄우기(멀티뷰) 허용 여부
+        webSettings.loadWithOverviewMode = true // 메타태그 허용 여부
+        webSettings.useWideViewPort = true // 화면 사이즈 맞추기 허용 여부
+        webSettings.setSupportZoom(true) // 화면 줌 허용 여부
+        webSettings.builtInZoomControls = false // 화면 확대 축소 허용 여부
+        webSettings.cacheMode = WebSettings.LOAD_NO_CACHE // 브라우저 캐시 허용 여부
+        webSettings.domStorageEnabled = true // 로컬저장소 허용 여부
+
+        mWebView.setWebViewClient(WebViewClient())
+
+        return view
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_camera, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment camera.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            camera().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
