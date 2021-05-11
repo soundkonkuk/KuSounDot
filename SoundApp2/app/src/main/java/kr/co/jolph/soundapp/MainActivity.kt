@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         retrofitimageexample.setOnClickListener {
-            val intent= Intent(this, RetrofitSendFileExample::class.java)
+            val intent= Intent(this, RetrofitSendFileExample3::class.java)
             startActivity(intent)
         }
 //        retrofitimageexample3?.setOnClickListener {
