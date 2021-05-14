@@ -13,9 +13,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.SoundApp">
-        <activity android:name=".RetrofitSendFileExample5"></activity>
+        android:theme="@style/Theme.SoundApp"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Getresultfromserver"></activity>
+        <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RetrofitSendFileExample5" />
         <activity android:name=".RetrofitSendFileExample4" />
         <activity android:name=".RetrofitSendFileExample3" />
         <activity android:name=".Setsooundactivitynew" />
@@ -32,13 +40,9 @@
         <service
             android:name=".IncomingRequestPhoneService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" />
 
-        </service>
-
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Setsoundactivity" />
     </application>
 

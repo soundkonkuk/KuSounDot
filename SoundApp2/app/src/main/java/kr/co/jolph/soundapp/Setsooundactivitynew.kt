@@ -17,7 +17,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_setsoundactivity.*
+import kotlinx.android.synthetic.main.activity_setsooundactivitynew.*
 import java.io.IOException
 import java.time.LocalDate
 import java.time.LocalDateTime

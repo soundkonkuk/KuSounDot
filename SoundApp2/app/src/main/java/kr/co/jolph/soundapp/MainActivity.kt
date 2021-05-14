@@ -33,18 +33,12 @@ class MainActivity : AppCompatActivity() {
         initNaviBar()
     }
     private fun init3(){
-        setcolorbutton.setOnClickListener {
-           val intent= Intent(this, Setsooundactivitynew::class.java)
+        retrofitimageexample3.setOnClickListener {
+           val intent= Intent(this, Getresultfromserver::class.java)
             startActivity(intent)
         }
-        retrofitimageexample.setOnClickListener {
-            val intent= Intent(this, RetrofitSendFileExample3::class.java)
-            startActivity(intent)
-        }
-//        retrofitimageexample3?.setOnClickListener {
-//            val intent= Intent(this, Setsooundactivitynew::class.java)
-//            startActivity(intent)
-//        }
+
+
 
 
     }

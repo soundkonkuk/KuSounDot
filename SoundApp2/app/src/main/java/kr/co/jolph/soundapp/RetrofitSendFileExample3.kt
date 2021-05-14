@@ -7,7 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_retrofit_send_file_example.*
+import kotlinx.android.synthetic.main.activity_retrofit_send_file_example3.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -59,7 +59,7 @@ class RetrofitSendFileExample3 : AppCompatActivity() {
                     //bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data?.data ).toString();
                     //image_view.setImageURI("primary:Android/data/kr.co.jolph.soundapp/cache/2021-05-09T06:46:58.655.wav")
                     //image_view.setImageURI("sdk_gphone_x86/Android/data/kr.co.jolph.soundapp.cache/2021-05-09T06:46:58.655.wav")
-                    image_view.setImageURI(bitmap)
+                    //image_view.setImageURI(bitmap)
                 }
             }
         }
