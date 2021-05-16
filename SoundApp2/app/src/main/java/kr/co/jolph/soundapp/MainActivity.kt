@@ -23,25 +23,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        init3()
-
         var actionBar : ActionBar?
         actionBar = supportActionBar;
         actionBar?.hide()
-
         initNaviBar()
     }
-    private fun init3(){
-        retrofitimageexample3.setOnClickListener {
-           val intent= Intent(this, Getresultfromserver::class.java)
-            startActivity(intent)
-        }
 
-
-
-
-    }
     private fun initNaviBar(){
 
         bottomNavi.run{

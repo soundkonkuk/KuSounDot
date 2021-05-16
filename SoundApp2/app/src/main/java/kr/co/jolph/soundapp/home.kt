@@ -25,10 +25,6 @@ class home : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        retrofitimageexample3?.setOnClickListener {
-            val intent= Intent(activity, Setsooundactivitynew::class.java)
-            startActivity(intent)
-        }
     }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,17 +33,11 @@ class home : Fragment() {
 
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         view.retrofitimageexample4.setOnClickListener {
-            val intent= Intent(activity, RetrofitSendFileExample5::class.java)
+            val intent= Intent(activity, Getresultfromserver::class.java)
             startActivity(intent)
         }
         return view
 
-//        val view3 =  inflater.inflate(R.layout.fragment_home, container, false)
-//        view.retrofitimageexample3.setOnClickListener {
-//            val intent= Intent(activity, Getresultfromserver::class.java)
-//            startActivity(intent)
-//        }
-//        return view3
     }
 
     companion object {

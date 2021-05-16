@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
-        android:text="레트로핏 소리파일 서버전송 실행하기"
+        android:layout_marginTop="500sp"
+        android:text="녹음된 소리 전송하기 / 소리분류결과 전달 받기"
         android:visibility="visible" />
 
 </FrameLayout>

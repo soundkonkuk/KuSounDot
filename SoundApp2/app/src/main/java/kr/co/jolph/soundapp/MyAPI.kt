@@ -11,27 +11,27 @@ import retrofit2.http.Part
 import retrofit2.http.*
 
 interface MyAPI {
-    @Multipart
-    @POST("hello")
-    fun uploadImage(
-            @Part image: MultipartBody.Part,
-            @Part("desc") desc: RequestBody
-    ): Call<UploadResponse>
-    fun uploadSound(
-        @Part sound: MultipartBody.Part,
-        @Part("desc") desc: RequestBody
-    ): Call<UploadResponse>
+//    @Multipart
+//    @POST("hello")
+//    fun uploadImage(
+//            @Part image: MultipartBody.Part,
+//            @Part("desc") desc: RequestBody
+//    ): Call<UploadResponse>
+//    fun uploadSound(
+//        @Part sound: MultipartBody.Part,
+//        @Part("desc") desc: RequestBody
+//    ): Call<UploadResponse>
 //    @Multipart
 //    @POST("upload")
 //    Call<RequestBody> uploadImage(@Part MultipartBody.Part part,
 //    @Part("somedata") RequestBody requestBody);
-    companion object {
-        operator fun invoke(): MyAPI {
-            return Retrofit.Builder()
-                    .baseUrl("http://203.252.166.239:5002/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(MyAPI::class.java)
-        }
-    }
+//    companion object {
+//        operator fun invoke(): MyAPI {
+//            return Retrofit.Builder()
+//                    .baseUrl("http://203.252.166.239:5002/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build()
+//                    .create(MyAPI::class.java)
+//        }
+//    }
 }

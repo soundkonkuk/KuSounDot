@@ -6,10 +6,14 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("/predict")
+    //@GET("/predict")
+    @GET("todos/1")
     fun getUser(): Call<JsonElement>
-    //fun getUser(@Path(value = "page", encoded = true)page: String ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST("todos/1")
+    fun createUser(@Field("firstName") firstName :String
+    ) : Call<JsonElement>
 
 
 }
