@@ -47,7 +47,6 @@ class SoundAuthorityActivity : FragmentActivity(), AmbientModeSupport.AmbientCal
         /* Id to identify starting/closing RequestPermissionOnPhoneActivity (startActivityForResult). */
         private val REQUEST_PHONE_PERMISSION = 1
         private var mPhonePermissionApproved = false
-        private var mPhoneRequestingWearSensorPermission = false
         private var mPhoneStoragePermissionButton: Button? = null
         private var mPhoneNodeId: String? = null
     }
@@ -78,6 +77,7 @@ class SoundAuthorityActivity : FragmentActivity(), AmbientModeSupport.AmbientCal
         Log.d(TAG, "onPause()")
         super.onPause()
         Wearable.getMessageClient(this).removeListener(this)
+
     }
 
     override fun onResume() {
