@@ -17,6 +17,7 @@ import java.net.URI
 import kotlin.concurrent.timer
 
 class Getresultfromserver : AppCompatActivity() {
+
     val TAG: String = "LOG"
     var filepath = Uri.parse("/storage/emulated/0/Download/q15-ararat.jpg")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +25,8 @@ class Getresultfromserver : AppCompatActivity() {
         setContentView(R.layout.activity_getresultfromserver)
         get_method_btn.setOnClickListener {
             uploadFilecloudstorage()
-            RetrofitManager.instance.getUser2()
-            RetrofitManager.instance.createUser("50번소리파일")
+           // RetrofitManager.instance.getUser2()
+          //  RetrofitManager.instance.createUser("50번소리파일")
             timer(period = 3000, initialDelay = 3000)
             {
                 Log.d(TAG, "겟 메소드 호출")

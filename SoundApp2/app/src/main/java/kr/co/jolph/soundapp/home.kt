@@ -33,7 +33,7 @@ class home : Fragment() {
 
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         view.retrofitimageexample4.setOnClickListener {
-            val intent= Intent(activity, Getresultfromserver::class.java)
+            val intent= Intent(activity, Setsooundactivitynew::class.java)
             startActivity(intent)
         }
         return view

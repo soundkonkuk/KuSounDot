@@ -23,11 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RetrofitSendFileExample5" />
-        <activity android:name=".RetrofitSendFileExample4" />
-        <activity android:name=".RetrofitSendFileExample3" />
+
         <activity android:name=".Setsooundactivitynew" />
-        <activity android:name=".RetrofitSendFileExample" />
+
         <activity android:name=".Loginactivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +41,7 @@
             android:exported="true" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".Setsoundactivity" />
+
     </application>
 
 </manifest>

@@ -50,7 +50,6 @@ class Setsooundactivitynew : AppCompatActivity() {
                 timer(period = 3000)
                 {
                     println(startnumber)
-                    //stopRecording()
                     startnumber++
                     if(startnumber>10000)
                         cancel()
@@ -59,13 +58,10 @@ class Setsooundactivitynew : AppCompatActivity() {
                     mediaRecorder?.release();  // release resources back to the system
                     mediaRecorder = null;
                     state = false
-
                     val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                     ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
-
                     mediaRecorder = MediaRecorder()
                     var dateAndtime: LocalDateTime = LocalDateTime.now()
-                    val onlyDate: LocalDate = LocalDate.now()
                     output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -81,7 +77,6 @@ class Setsooundactivitynew : AppCompatActivity() {
                         e.printStackTrace()
                     }
                 }
-
                 Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -102,12 +97,9 @@ class Setsooundactivitynew : AppCompatActivity() {
             mediaRecorder = null;
             state = false
         } else {
-            val dateAndtime: LocalDateTime = LocalDateTime.now()
-            val onlyDate: LocalDate = LocalDate.now()
             mediaRecorder = MediaRecorder()
             startnumber++
             //output = Environment.getExternalStorageDirectory().absolutePath + "/recording.mp3"
-            //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
             output = "${externalCacheDir!!.absolutePath}/${startnumber}.wav"
             mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
