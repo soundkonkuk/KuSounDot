@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val fra_camera = camera()
     private val fra_settings = settings()
     private val fra_watch = watch()
-
+    var resultKUSOUNDOT:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         actionBar = supportActionBar;
         actionBar?.hide()
         initNaviBar()
+        resultKUSOUNDOT=RetrofitManager.instance.returnKUSOUNDOT()
     }
 
     private fun initNaviBar(){

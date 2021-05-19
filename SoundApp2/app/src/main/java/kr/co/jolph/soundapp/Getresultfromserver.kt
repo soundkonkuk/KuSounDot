@@ -31,7 +31,6 @@ class Getresultfromserver : AppCompatActivity() {
             {
                 Log.d(TAG, "겟 메소드 호출")
                 RetrofitManager.instance.getUser()
-
                 cancel()
             }
         }
