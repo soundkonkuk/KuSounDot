@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.time.seconds
 import android.content.Intent
 import kotlinx.android.synthetic.main.fragment_home.*
+import kr.co.jolph.soundapp.Getresultfromserver
 
 class MainActivity : AppCompatActivity() {
 

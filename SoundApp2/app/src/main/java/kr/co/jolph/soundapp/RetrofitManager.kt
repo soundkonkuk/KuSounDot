@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitManager {
     val TAG: String = "LOG"
-
+    var KUSOUNDOT: String =""
     companion object {
 
         val instance = RetrofitManager()
@@ -17,8 +17,8 @@ class RetrofitManager {
     }
 
 
-    private val httpCall : ApiService? = RetrofitClient.getClient("http://13.125.229.7:5000")?.create(ApiService::class.java)
-    //private val httpCall : ApiService? = RetrofitClient.getClient("https://jsonplaceholder.typicode.com/")?.create(ApiService::class.java)
+    //private val httpCall : ApiService? = RetrofitClient.getClient("http://13.125.229.7:5000")?.create(ApiService::class.java)
+    private val httpCall : ApiService? = RetrofitClient.getClient("https://jsonplaceholder.typicode.com/")?.create(ApiService::class.java)
     fun getUser() {
 
         val call = httpCall?.getUser()
@@ -29,9 +29,16 @@ class RetrofitManager {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 Log.d(TAG, "RetrofitManager - getTodo() - onResponse() called / response: $response")
                 Log.d(TAG, "response.body : ${response.body()}")
+                KUSOUNDOT = response.body().toString()
+                print(KUSOUNDOT)
+                Log.d(TAG, KUSOUNDOT)
+
             }
+
         })
+
     }
+
     fun getUser2() {
         val call = httpCall?.getUser()
         call?.enqueue(object : retrofit2.Callback<JsonElement>{
