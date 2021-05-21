@@ -13,8 +13,8 @@ class RetrofitManager {
     companion object {
         val instance = RetrofitManager()
     }
-    //private val httpCall : ApiService? = RetrofitClient.getClient("http://13.125.229.7:5000")?.create(ApiService::class.java)
-    private val httpCall : ApiService? = RetrofitClient.getClient("https://jsonplaceholder.typicode.com/")?.create(ApiService::class.java)
+    private val httpCall : ApiService? = RetrofitClient.getClient("http://13.125.229.7:5000")?.create(ApiService::class.java)//우리꺼
+    //private val httpCall : ApiService? = RetrofitClient.getClient("https://jsonplaceholder.typicode.com/")?.create(ApiService::class.java)
 
     fun getUser() {
 

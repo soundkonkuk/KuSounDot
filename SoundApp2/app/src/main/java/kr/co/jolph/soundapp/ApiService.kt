@@ -10,8 +10,8 @@ interface ApiService {
 
 
 
-    //@GET("/predict")
-    @GET("todos/1")
+    @GET("/predict")//우리꺼
+    //@GET("todos/1")
     fun getUser(): Call<JsonElement>
 
 

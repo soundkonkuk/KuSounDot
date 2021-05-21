@@ -17,7 +17,7 @@ class camera : Fragment() {
         val view: View = inflater.inflate(kr.co.jolph.soundapp.R.layout.fragment_camera, container, false)
 
         val mWebView = view.findViewById(kr.co.jolph.soundapp.R.id.webView1) as WebView
-        mWebView.loadUrl("www.naver.com")
+        mWebView.loadUrl("http://192.168.147.150:8090/?action=stream")
 
         val webSettings = mWebView.getSettings()
         webSettings.setJavaScriptEnabled(true)
