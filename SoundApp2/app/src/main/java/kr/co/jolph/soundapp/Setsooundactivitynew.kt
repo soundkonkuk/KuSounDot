@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_setsooundactivitynew.*
+import java.io.File
 import java.io.IOException
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -57,7 +58,7 @@ class Setsooundactivitynew : AppCompatActivity() {
                 override fun run() {
                     while (runner != null) {
                         try {
-                            sleep(10)
+                            sleep(1000)
                             Log.i("Noise", "runner")
                         } catch (e: InterruptedException) {
 
@@ -104,6 +105,8 @@ class Setsooundactivitynew : AppCompatActivity() {
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                     mediaRecorder?.setOutputFile(output)
+                    //amplitude = mediaRecorder?.maxAmplitude!!
+                    //soundDb()
                     println(dateAndtime)
                     try {
                         mediaRecorder?.prepare()
@@ -115,12 +118,23 @@ class Setsooundactivitynew : AppCompatActivity() {
                         e.printStackTrace()
                     }
                     if(decibel != null){
-                        if(decibel!! > 30.0){
+                        if(decibel!! > 40.0){
                             // TODO: send .wav file to server
                             println("send to server! this file decibel is $decibel")
                         }else{
                             //TODO: delete all .wav file in cache
                             println("delete all file")
+                            try{
+                                val file = File(output)
+                                if(file.exists()){
+                                    file.delete()
+                                    println("file delete complete!")
+                                }
+                            }catch(e: Exception){
+                                e.printStackTrace()
+                                println("file error")
+                            }
+
                         }
                     }
                 }
@@ -186,8 +200,8 @@ class Setsooundactivitynew : AppCompatActivity() {
 
     }
     private fun soundDb(): Double? {
-        println("soundDb: $dateAndtime")
-        val amplitude = mediaRecorder?.maxAmplitude
+       println("soundDb: $dateAndtime")
+       val amplitude = mediaRecorder?.maxAmplitude
         println("soundDb(): $amplitude")
         return if(amplitude!=null){
             val mEMA = EMA_FILTER * amplitude!! + (1.0 - EMA_FILTER) * mEMA
