@@ -23,7 +23,6 @@ object RetrofitClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build()
-            //  .client(okHttpClient)
         }
         return retrofitClient
     }

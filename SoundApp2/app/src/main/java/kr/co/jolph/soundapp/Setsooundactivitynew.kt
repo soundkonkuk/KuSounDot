@@ -23,6 +23,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.concurrent.timerTask
+import java.nio.file.Paths
 
 @Suppress("DEPRECATION")
 class Setsooundactivitynew : AppCompatActivity() {
@@ -33,7 +34,6 @@ class Setsooundactivitynew : AppCompatActivity() {
     private var recordingStopped: Boolean = false
     var startnumber=100
     var numbers = 100
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +68,8 @@ class Setsooundactivitynew : AppCompatActivity() {
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                     mediaRecorder?.setOutputFile(output)
+                    val relativePath = Paths.get("")
+                    val path = relativePath.toAbsolutePath().toString()
                     try {
                         mediaRecorder?.prepare()
                         mediaRecorder?.start()
@@ -84,10 +86,7 @@ class Setsooundactivitynew : AppCompatActivity() {
         button_stop_recording.setOnClickListener{
             stopRecording()
         }
-
     }
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startRecording() {
         startnumber++
@@ -120,14 +119,9 @@ class Setsooundactivitynew : AppCompatActivity() {
     }
     @SuppressLint("RestrictedApi", "SetTextI18n")
     @TargetApi(Build.VERSION_CODES.N)
-
     private fun stopRecording(){
         if(state){
             mediaRecorder?.stop();     // stop recording
-            /*mediaRecorder?.reset();    // set state to idle
-            mediaRecorder?.release();  // release resources back to the system
-            mediaRecorder = null;
-            state = false*/
             Toast.makeText(this, "소리저장완료!", Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(this, "You are not recording right now!", Toast.LENGTH_SHORT).show()
