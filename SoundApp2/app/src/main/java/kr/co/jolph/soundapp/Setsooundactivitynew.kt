@@ -38,6 +38,7 @@ class Setsooundactivitynew : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew)
+        textView10.setText("HI")
         button_start_recording.setOnClickListener {
             println("hello!"+startnumber)
             if (ContextCompat.checkSelfPermission(this,

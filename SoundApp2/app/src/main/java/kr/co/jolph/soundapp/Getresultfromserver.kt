@@ -24,7 +24,7 @@ class Getresultfromserver : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_getresultfromserver)
         get_method_btn.setOnClickListener {
-            uploadFilecloudstorage()
+            //uploadFilecloudstorage()
            // RetrofitManager.instance.getUser2()
           //  RetrofitManager.instance.createUser("50번소리파일")
             timer(period = 3000, initialDelay = 3000)
