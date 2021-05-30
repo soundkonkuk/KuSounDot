@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity() {
         actionBar?.hide()
         initNaviBar()
 
-
+        soundActivityBtn.setOnClickListener {
+            val setSoundIntent = Intent(this, Setsooundactivitynew::class.java)
+            startActivity(setSoundIntent)
+        }
         //노티피케이션 채널 생성
         /*createNotificationChannel(channelID, "DemoChannel", "this is a demo")
         psybutton.setOnClickListener {
