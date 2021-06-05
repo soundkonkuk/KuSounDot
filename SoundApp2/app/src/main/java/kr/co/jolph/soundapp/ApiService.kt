@@ -8,9 +8,12 @@ import java.util.concurrent.TimeUnit
 
 interface ApiService {
 
-    @GET("/predict")//우리꺼
+
+
+    @GET("/predict")
     //@GET("todos/1")
     fun getUser(): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST("todos/1")

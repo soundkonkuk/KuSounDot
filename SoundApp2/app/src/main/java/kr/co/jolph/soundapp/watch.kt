@@ -25,6 +25,11 @@ import com.google.android.wearable.intent.RemoteIntent
 import kotlinx.android.synthetic.main.fragment_watch.*
 
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [watch.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class watch : Fragment(), CapabilityClient.OnCapabilityChangedListener
         , MessageClient.OnMessageReceivedListener, OnCompleteListener<Int> {
 
@@ -93,6 +98,7 @@ class watch : Fragment(), CapabilityClient.OnCapabilityChangedListener
         information_text_view?.text = Check_Message
         remote_open_button?.setOnClickListener {
             //openPlayStoreOnWearDevicesWithoutApp()
+
         }
 
         //Message

@@ -10,14 +10,14 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-//http://192.168.59.150:8090/?action=streamwww.naver.com
+//http://192.168.59.150:8090/?action=stream
 class camera : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(kr.co.jolph.soundapp.R.layout.fragment_camera, container, false)
 
         val mWebView = view.findViewById(kr.co.jolph.soundapp.R.id.webView1) as WebView
-        mWebView.loadUrl("http://192.168.147.150:8090/?action=stream")
+        mWebView.loadUrl("http://192.168.224.150:8090/?action=stream")
 
         val webSettings = mWebView.getSettings()
         webSettings.setJavaScriptEnabled(true)
