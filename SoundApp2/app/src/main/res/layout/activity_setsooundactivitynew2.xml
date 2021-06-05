@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="412dp"
-        android:text="   실시간 소리감지         기능이 켜졌습니다!"
+        android:text="   실시간 소리감지         기능이 꺼졌습니다!"
         android:textColor="@color/green"
         android:textSize="32dp"
         android:textStyle="bold" />

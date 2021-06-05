@@ -4,50 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="#E0E3CA"
     tools:context=".settings">
 
     <Button
-        android:id="@+id/buttonfirst"
-        android:layout_width="201dp"
-        android:layout_height="92dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:background="#BBC36C"
-        android:text="소리저장"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/frame"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="0dp"
-        android:layout_height="94dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:background="#BBC36C"
-        android:text="알람"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonfirst"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonfirst">
-
-    </FrameLayout>
+        android:id="@+id/remote_open_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        android:text="소리분류결과 확인하러 가기"
+        android:textColor="@color/dismiss_close"
+        android:layout_marginTop="700dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:backgroundTint="@color/purple_700"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="384dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

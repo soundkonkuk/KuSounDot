@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6FFE6"
     tools:context=".home">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <TextView
+        android:id="@+id/textview_sound_recorder_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="50dp"
+        android:text="KUSOUNDOT 소리설정"
+        android:textColor="#000"
+        android:textSize="32dp"
+        android:textStyle="bold" />
 
 
     <Button
-        android:id="@+id/retrofitimageexample4"
-        android:layout_width="match_parent"
+        android:id="@+id/button_start_recording"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/green"
-        android:layout_marginTop="500sp"
-        android:text="녹음된 소리 전송하기 / 소리분류결과 전달 받기"
-        android:visibility="visible" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="400dp"
+
+        android:background="@drawable/left_btn_backgound"
+        android:text="실시간소리녹음on"
+        android:textStyle="bold"
+        app:backgroundTint="#FFAAFF"
+        app:strokeColor="#B9062F"
+        app:strokeWidth="5dp" />
+
+
+    <Button
+        android:id="@+id/button_stop_recording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/right_btn_backgound"
+        android:text="실시간소리녹음off"
+        android:textStyle="bold"
+        app:backgroundTint="#FFAAFF" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="111dp"
+        android:layout_height="143dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="180dp"
+        app:srcCompat="@drawable/icon" />
+
 
 </FrameLayout>

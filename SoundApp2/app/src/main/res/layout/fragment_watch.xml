@@ -18,9 +18,12 @@
         android:id="@+id/remote_open_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/purple_700"
         android:text="Install App on Wear Device"
+        android:textColor="@color/dismiss_close"
+        android:textStyle="bold"
         android:visibility="visible"
-        android:layout_gravity="bottom"/>
+        app:backgroundTint="@color/purple_700" />
 
 </FrameLayout>

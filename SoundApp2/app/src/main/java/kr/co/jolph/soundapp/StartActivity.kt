@@ -14,12 +14,12 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
-                val intent = Intent(applicationContext, Loginactivity::class.java)
+                val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
         val timer = Timer()
-        timer.schedule(timerTask, 3000)
+        timer.schedule(timerTask, 1000)
     }
 }

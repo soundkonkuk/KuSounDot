@@ -1,55 +1,87 @@
 package kr.co.jolph.soundapp
 
 import kotlin.concurrent.timer
-import kotlin.coroutines.*
-//import kotlinx.coroutines.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_setsooundactivitynew.*
+import java.io.File
 import java.io.IOException
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.concurrent.timerTask
+import kotlin.math.log10
 
 @Suppress("DEPRECATION")
 class Setsooundactivitynew : AppCompatActivity() {
 
-    private var output: String? = null
+    companion object {
+        val instance = Setsooundactivitynew()
+    }
+
+    var output: String? = null
+    fun getoutput(): String? {
+        return output
+    }
     private var mediaRecorder: MediaRecorder? = null
     private var state: Boolean = false
-    private var recordingStopped: Boolean = false
     var startnumber=100
-    var numbers = 100
+    val mHandler: Handler = Handler()
+    private val EMA_FILTER = 0.6 // EMA 필터 계산에 사용되는 상수, 기본값 0.6
+    private var mEMA = 0.0 // EMA 필터가 적용된 데시벨 피크 값. getAmplitudeEMA()의 리턴값이다.
+    private var decibel: Double? = null
+    var dateAndtime: LocalDateTime? = null
+    var isRecordStart = false
+    var presentFileName: String? = null
+    var runner: Thread? = null
+    val measure = Runnable {
+        decibel = soundDb()
+        println("decibel: $decibel") }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew)
-        button_start_recording.setOnClickListener {
+        if (runner == null) {
+            runner = object : Thread() {
+                override fun run() {
+                    while (runner != null) {
+                        try {
+                            sleep(1000)
+                            Log.i("Noise", "runner")
+                        } catch (e: InterruptedException) {
+                        }
+                        if(isRecordStart){
+                            mHandler.post(measure)
+                        }
+                    }
+                }
+            }
+            (runner as Thread).start()
+            Log.d("Noise", "start runner()")
+        }
             println("hello!"+startnumber)
             if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                 ActivityCompat.requestPermissions(this, permissions,0)
-                startRecording()
             } else {
                 timer(period = 3000)
                 {
                     println(startnumber)
+                    isRecordStart = true
+                    println("isRecordStart: $isRecordStart")
                     startnumber++
                     if(startnumber>10000)
                         cancel()
@@ -61,12 +93,13 @@ class Setsooundactivitynew : AppCompatActivity() {
                     val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                     ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
                     mediaRecorder = MediaRecorder()
-                    var dateAndtime: LocalDateTime = LocalDateTime.now()
+                    dateAndtime = LocalDateTime.now()
                     output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                     mediaRecorder?.setOutputFile(output)
+                    println(dateAndtime)
                     try {
                         mediaRecorder?.prepare()
                         mediaRecorder?.start()
@@ -76,66 +109,64 @@ class Setsooundactivitynew : AppCompatActivity() {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
+                    if(decibel != null){
+                        Log.i("Noisetest", "${decibel}")
+                        if(decibel!! > 10.0){
+                            Getresultfromserver.instance.uploadFilecloudstorage(output!!)
+                            RetrofitManager.instance.getUser()
+                            //RetrofitManager.instance.createUser(output!!)
+                            timer(period = 500){
+                                if(RetrofitManager.instance.KUSOUNDOT!=""){
+                                    Getresultfromserver.instance.displayNotification()
+                                    RetrofitManager.instance.KUSOUNDOT =""
+                                }
+                            }
+                            println("send to server! this file decibel is $decibel")
+                            println("now file: $presentFileName")
+                        }else{
+                            println("delete all file")
+                            try{
+                                val file = File(presentFileName)
+                                println("now file: $presentFileName")
+                                if(file.exists()){
+                                    file.delete()
+                                    println("file delete complete!")
+                                }
+                            }catch(e: Exception){
+                                e.printStackTrace()
+                                println("file error")
+                            }
+                        }
+                    }
                 }
                 Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
             }
-        }
-        button_stop_recording.setOnClickListener{
-            stopRecording()
-        }
-
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun startRecording() {
-        startnumber++
-        if (state) {
-            mediaRecorder?.stop();     // stop recording
-            mediaRecorder?.reset();    // set state to idle
-            mediaRecorder?.release();  // release resources back to the system
-            mediaRecorder = null;
-            state = false
-        } else {
-            mediaRecorder = MediaRecorder()
-            startnumber++
-            //output = Environment.getExternalStorageDirectory().absolutePath + "/recording.mp3"
-            output = "${externalCacheDir!!.absolutePath}/${startnumber}.wav"
-            mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-            mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            mediaRecorder?.setOutputFile(output)
-            try {
-                mediaRecorder?.prepare()
-                mediaRecorder?.start()
-                state = true
-            } catch (e: IllegalStateException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
+        val timerTask: TimerTask = object : TimerTask() {
+            override fun run() {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
-        Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
+        val timer = Timer()
+        timer.schedule(timerTask, 1000)
     }
     @SuppressLint("RestrictedApi", "SetTextI18n")
     @TargetApi(Build.VERSION_CODES.N)
 
-    private fun stopRecording(){
-        if(state){
-            mediaRecorder?.stop();     // stop recording
-            /*mediaRecorder?.reset();    // set state to idle
-            mediaRecorder?.release();  // release resources back to the system
-            mediaRecorder = null;
-            state = false*/
-            Toast.makeText(this, "소리저장완료!", Toast.LENGTH_SHORT).show()
+    private fun soundDb(): Double? {
+        println("soundDb: $dateAndtime")
+        val amplitude = mediaRecorder?.maxAmplitude
+        presentFileName = output
+        println("soundDb(): $amplitude")
+        return if(amplitude!=null){
+            val mEMA = EMA_FILTER * amplitude!! + (1.0 - EMA_FILTER) * mEMA
+            println("mEMA: $mEMA")
+            val pressure = mEMA/51805.5336
+            //println("second: ${20 * ln(amplitude / 2700.0)}")
+            20 * log10(pressure/ 0.000028251)
         }else{
-            Toast.makeText(this, "You are not recording right now!", Toast.LENGTH_SHORT).show()
+            0.0
         }
-        startnumber+=10000
-        mediaRecorder?.reset();    // set state to idle
-        mediaRecorder?.release();  // release resources back to the system
-        mediaRecorder = null;
-        state = false
-
     }
 }

@@ -13,17 +13,17 @@
         android:layout_height="80dp"
         android:background="#9C7"
         android:minHeight="?attr/actionBarSize"
+        android:scrollbarSize="8dp"
         android:theme="?attr/actionBarTheme"
-        app:title="SoundApp"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-        />
+        app:titleTextColor="#FF00FF"
+        app:title="                         KUSOUNDOT"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
     </FrameLayout>
 
 
