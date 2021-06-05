@@ -50,6 +50,10 @@ class Getresultfromserver : AppCompatActivity() {
                 }
             }
         }
+        gotohomebutton.setOnClickListener {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     fun displayNotification() {
         /* 1. 알림콘텐츠 설정*/

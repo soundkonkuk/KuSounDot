@@ -24,6 +24,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/gotohomebutton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="home"
+        android:textColor="@color/dismiss_close"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200" />
 
 
 </LinearLayout>
