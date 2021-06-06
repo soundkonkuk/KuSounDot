@@ -6,14 +6,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 var anan = ""
 
 class RetrofitManager {
     private val channelID="kr.co.jolph.soundapp.channel2"
     val TAG: String = "LOG"
     var KUSOUNDOT: String =""
-
 
     companion object {
         val instance = RetrofitManager()

@@ -6,16 +6,25 @@ import android.os.Bundle
 import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
@@ -24,7 +33,8 @@ import kotlin.math.log10
 
 @Suppress("DEPRECATION")
 class Setsooundactivitynew : AppCompatActivity() {
-
+    private val channelID="kr.co.jolph.soundapp.channel2"
+    private var notificationManager:NotificationManager?=null
     companion object {
         val instance = Setsooundactivitynew()
     }
@@ -35,7 +45,7 @@ class Setsooundactivitynew : AppCompatActivity() {
     }
     private var mediaRecorder: MediaRecorder? = null
     private var state: Boolean = false
-    var startnumber=100
+
     val mHandler: Handler = Handler()
     private val EMA_FILTER = 0.6 // EMA 필터 계산에 사용되는 상수, 기본값 0.6
     private var mEMA = 0.0 // EMA 필터가 적용된 데시벨 피크 값. getAmplitudeEMA()의 리턴값이다.
@@ -109,21 +119,25 @@ class Setsooundactivitynew : AppCompatActivity() {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-                    if(decibel != null){
+                   // if(decibel != null){
                         Log.i("Noisetest", "${decibel}")
-                        if(decibel!! > 10.0){
-                            Getresultfromserver.instance.uploadFilecloudstorage(output!!)
+                       // if(decibel!! > 10.0){
+                            uploadFilecloudstorage(output!!)
                             RetrofitManager.instance.getUser()
                             //RetrofitManager.instance.createUser(output!!)
-                            timer(period = 500){
+                    createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
+                            timer(period = 1000){
                                 if(RetrofitManager.instance.KUSOUNDOT!=""){
-                                    Getresultfromserver.instance.displayNotification()
+                                    if(startnumber>10000)
+                                        cancel()
+                                    displayNotification()
                                     RetrofitManager.instance.KUSOUNDOT =""
                                 }
                             }
                             println("send to server! this file decibel is $decibel")
                             println("now file: $presentFileName")
-                        }else{
+                       // }
+                      //  else{
                             println("delete all file")
                             try{
                                 val file = File(presentFileName)
@@ -137,8 +151,8 @@ class Setsooundactivitynew : AppCompatActivity() {
                                 println("file error")
                             }
                         }
-                    }
-                }
+                   // }
+             //   }
                 Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
             }
         val timerTask: TimerTask = object : TimerTask() {
@@ -153,7 +167,52 @@ class Setsooundactivitynew : AppCompatActivity() {
     }
     @SuppressLint("RestrictedApi", "SetTextI18n")
     @TargetApi(Build.VERSION_CODES.N)
+    fun displayNotification() {
+        /* 1. 알림콘텐츠 설정*/
+        //채널 ID
+        val notificationId = 2000
+        val intent2 = Intent(this, CameraActivity::class.java)
+        val pendingIntent2: PendingIntent = PendingIntent.getActivity(
+                this,
+                0, //request code
+                intent2,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val action2: NotificationCompat.Action =
+                NotificationCompat.Action.Builder(0, "자세히 보기", pendingIntent2).build()
 
+        val notification: Notification = NotificationCompat.Builder(this@Setsooundactivitynew, channelID)
+                .setContentTitle("소리 알림") // 노티 제목
+                .setContentText(RetrofitManager.instance.KUSOUNDOT) // 노티 내용
+                .setSmallIcon(android.R.drawable.ic_dialog_info) //아이콘이미지
+                .setAutoCancel(true) // 사용자가 알림을 탭하면 자동으로 알림을 삭제합니다.
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .addAction(action2) //액션버튼 인텐트
+                .build()
+        /* 3. 알림 표시*/
+        notificationManager?.notify(notificationId, notification) //노티실행
+    }
+    fun createNotificationChannel(id: String, name: String, channelDescription: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(id, name, importance).apply {
+                description = channelDescription
+            }
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager?.createNotificationChannel(channel)
+        } else {
+
+        }
+    }
+    fun uploadFilecloudstorage(wavpath:String){
+        if(output!=null){
+            var storage = Firebase.storage
+            val storageRef = storage.reference
+            var file = Uri.fromFile(File("${wavpath}"))
+            val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
+            riversRef.putFile(file)
+        }
+    }
     private fun soundDb(): Double? {
         println("soundDb: $dateAndtime")
         val amplitude = mediaRecorder?.maxAmplitude

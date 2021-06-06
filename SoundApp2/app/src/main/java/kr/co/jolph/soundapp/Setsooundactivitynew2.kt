@@ -15,9 +15,7 @@ import java.util.*
 @Suppress("DEPRECATION")
 class Setsooundactivitynew2 : AppCompatActivity() {
 
-    companion object {
-        val instance = Setsooundactivitynew()
-    }
+
 
     var output: String? = null
     fun getoutput(): String? {

@@ -40,7 +40,7 @@ class Getresultfromserver : AppCompatActivity() {
             print("D/LOG: RetrofitManager - getTodo() - onResponse() called / response: Response{protocol=h2, code=200, message=, url=http://13.125.229.7:5000h/predict}")
             print("D/LOG: response.body : {\"answer\":3,\"message\":baby}")
             Log.d(TAG, "겟 메소드 호출")
-            RetrofitManager.instance.getUser()
+           // RetrofitManager.instance.getUser()
            // RetrofitManager.instance.createUser("KUSOUNDOT")
             //RetrofitManager.instance.createUser("${Setsooundactivitynew.instance.output}")
             timer(period = 500){

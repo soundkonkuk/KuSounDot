@@ -1,5 +1,4 @@
 package kr.co.jolph.soundapp
-
 import android.content.Intent
 import android.media.MediaRecorder
 import android.os.Build
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 //import kotlinx.android.synthetic.main.fragment_home.retrofitimageexample3
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.time.LocalDateTime
-
+var startnumber=100
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 @Suppress("UNREACHABLE_CODE")
@@ -41,10 +40,15 @@ class home : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         view.button_start_recording.setOnClickListener {
+            val a = 1
+            if (startnumber>99999)
+            {startnumber-=100000}
             val intent= Intent(activity, Setsooundactivitynew::class.java)
             startActivity(intent)
         }
         view.button_stop_recording.setOnClickListener {
+            val a = 2
+            startnumber+=100000
             val intent= Intent(activity, Setsooundactivitynew2::class.java)
             startActivity(intent)
         }
