@@ -60,6 +60,9 @@ class Getresultfromserver : AppCompatActivity() {
         //채널 ID
         val notificationId = 2000
         val intent2 = Intent(this, CameraActivity::class.java)
+        //웨어 앱에서 자세히보기 노출 및 카메라 보기로 이동 가능하게 flag 설정
+        intent2.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
         val pendingIntent2: PendingIntent = PendingIntent.getActivity(
             this,
             0, //request code
