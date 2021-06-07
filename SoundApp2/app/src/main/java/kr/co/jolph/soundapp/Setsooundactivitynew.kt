@@ -45,7 +45,7 @@ class Setsooundactivitynew : AppCompatActivity() {
     }
     private var mediaRecorder: MediaRecorder? = null
     private var state: Boolean = false
-
+    var number = 100
     val mHandler: Handler = Handler()
     private val EMA_FILTER = 0.6 // EMA 필터 계산에 사용되는 상수, 기본값 0.6
     private var mEMA = 0.0 // EMA 필터가 적용된 데시벨 피크 값. getAmplitudeEMA()의 리턴값이다.
@@ -104,11 +104,13 @@ class Setsooundactivitynew : AppCompatActivity() {
                     ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
                     mediaRecorder = MediaRecorder()
                     dateAndtime = LocalDateTime.now()
-                    output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
+                    //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
+                    output = "${externalCacheDir!!.absolutePath}/sound.wav"
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                     mediaRecorder?.setOutputFile(output)
+                    number++
                     println(dateAndtime)
                     try {
                         mediaRecorder?.prepare()
