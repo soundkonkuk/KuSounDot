@@ -34,5 +34,11 @@
         android:textStyle="bold"
         app:backgroundTint="@color/teal_200" />
 
+    <Button
+        android:id="@+id/gotofirebase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
 
 </LinearLayout>

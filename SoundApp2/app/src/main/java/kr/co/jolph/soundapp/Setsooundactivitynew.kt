@@ -25,6 +25,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.ktx.storageMetadata
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
@@ -106,6 +107,7 @@ class Setsooundactivitynew : AppCompatActivity() {
                     dateAndtime = LocalDateTime.now()
                     //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
                     output = "${externalCacheDir!!.absolutePath}/sound.wav"
+                    Log.d("Output", "${output}")
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -141,17 +143,17 @@ class Setsooundactivitynew : AppCompatActivity() {
                        // }
                       //  else{
                             println("delete all file")
-                            try{
-                                val file = File(presentFileName)
-                                println("now file: $presentFileName")
-                                if(file.exists()){
-                                    file.delete()
-                                    println("file delete complete!")
-                                }
-                            }catch(e: Exception){
-                                e.printStackTrace()
-                                println("file error")
-                            }
+//                            try{
+//                                val file = File(presentFileName)
+//                                println("now file: $presentFileName")
+//                                if(file.exists()){
+//                                    file.delete()
+//                                    println("file delete complete!")
+//                                }
+//                            }catch(e: Exception){
+//                                e.printStackTrace()
+//                                println("file error")
+//                            }
                         }
                    // }
              //   }
@@ -210,9 +212,12 @@ class Setsooundactivitynew : AppCompatActivity() {
         if(output!=null){
             var storage = Firebase.storage
             val storageRef = storage.reference
-            var file = Uri.fromFile(File("${wavpath}"))
+            var file = Uri.fromFile(File("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/sound.wav"))
             val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
-            riversRef.putFile(file)
+            var metadata = storageMetadata {
+                contentType = "audio/wav"
+            }
+            riversRef.putFile(file, metadata)
         }
     }
     private fun soundDb(): Double? {

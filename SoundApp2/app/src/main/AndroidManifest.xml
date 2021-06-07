@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Setsooundactivitynew2"></activity>
+        <activity android:name=".FIrebasestoragetest"></activity>
+        <activity android:name=".Setsooundactivitynew2" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".Getresultfromserver" />
         <activity android:name=".StartActivity">

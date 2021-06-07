@@ -54,6 +54,10 @@ class Getresultfromserver : AppCompatActivity() {
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
         }
+        gotofirebase.setOnClickListener {
+            val intent = Intent(applicationContext, FIrebasestoragetest::class.java)
+            startActivity(intent)
+        }
     }
     fun displayNotification() {
         /* 1. 알림콘텐츠 설정*/
