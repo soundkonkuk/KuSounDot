@@ -231,7 +231,7 @@ class Setsooundactivitynew : AppCompatActivity() {
             var metadata = storageMetadata {
                 contentType = "audio/wav"
             }
-            riversRef.putFile(file,metadata)
+            riversRef.putFile(file)
         }
     }
     private fun soundDb(): Double? {
