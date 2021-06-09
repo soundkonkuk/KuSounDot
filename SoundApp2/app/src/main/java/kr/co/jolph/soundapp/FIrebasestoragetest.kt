@@ -17,7 +17,7 @@ class FIrebasestoragetest : AppCompatActivity() {
         fireebasetest.setOnClickListener {
             var storage = Firebase.storage
             val storageRef = storage.reference
-            var file = Uri.fromFile(File("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/sound3.wav"))
+            var file = Uri.fromFile(File("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/sound650.wav"))
             val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
             var metadata = storageMetadata {
                 contentType = "audio/wav"

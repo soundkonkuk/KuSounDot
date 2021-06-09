@@ -56,32 +56,32 @@ class Setsooundactivitynew : AppCompatActivity() {
     var isRecordStart = false
     var presentFileName: String? = null
     var runner: Thread? = null
-    val measure = Runnable {
-        decibel = soundDb()
-        println("decibel: $decibel") }
+//    val measure = Runnable {
+//        decibel = soundDb()
+//        println("decibel: $decibel") }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew)
-        if (runner == null) {
-            runner = object : Thread() {
-                override fun run() {
-                    while (runner != null) {
-                        try {
-                            sleep(1000)
-                            Log.i("Noise", "runner")
-                        } catch (e: InterruptedException) {
-                        }
-                        if(isRecordStart){
-                            mHandler.post(measure)
-                        }
-                    }
-                }
-            }
-            (runner as Thread).start()
-            Log.d("Noise", "start runner()")
-        }
+//        if (runner == null) {
+//            runner = object : Thread() {
+//                override fun run() {
+//                    while (runner != null) {
+//                        try {
+//                            sleep(1000)
+//                            Log.i("Noise", "runner")
+//                        } catch (e: InterruptedException) {
+//                        }
+//                        if(isRecordStart){
+//                            mHandler.post(measure)
+//                        }
+//                    }
+//                }
+//            }
+//            (runner as Thread).start()
+//            Log.d("Noise", "start runner()")
+//        }
         println("hello!"+startnumber)
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
@@ -89,25 +89,24 @@ class Setsooundactivitynew : AppCompatActivity() {
             val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
             ActivityCompat.requestPermissions(this, permissions,0)
         } else {
-            timer(period = 3000)
-            {
+
+
                 println(startnumber)
                 isRecordStart = true
                 println("isRecordStart: $isRecordStart")
                 startnumber++
                 if(startnumber>10000)
-                    cancel()
-                mediaRecorder?.stop();     // stop recording
-                mediaRecorder?.reset();    // set state to idle
-                mediaRecorder?.release();  // release resources back to the system
-                mediaRecorder = null;
+
+
                 state = false
                 val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                 ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
+
+
                 mediaRecorder = MediaRecorder()
                 dateAndtime = LocalDateTime.now()
                 //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
-                output = "${externalCacheDir!!.absolutePath}/sound.wav"
+                output = "${externalCacheDir!!.absolutePath}/sound.mp4"
                 mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                 mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                 mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -115,7 +114,16 @@ class Setsooundactivitynew : AppCompatActivity() {
                 try {
                     mediaRecorder?.prepare()
                     mediaRecorder?.start()
-                    state = true
+                    timer(period = 2000, initialDelay = 3000)
+                    {
+                        mediaRecorder?.stop();     // stop recording
+                        mediaRecorder?.reset();    // set state to idle
+                        mediaRecorder?.release();  // release resources back to the system
+                        mediaRecorder = null;
+                        state = true
+                        cancel()
+                    }
+
                 } catch (e: IllegalStateException) {
                     e.printStackTrace()
                 } catch (e: IOException) {
@@ -124,11 +132,16 @@ class Setsooundactivitynew : AppCompatActivity() {
                 // if(decibel != null){
                 Log.i("Noisetest", "${decibel}")
                 // if(decibel!! > 10.0){
+            timer(period = 2000, initialDelay = 3000)
+            {
                 uploadFilecloudstorage(output!!)
+                cancel()
+            }
+
                 RetrofitManager.instance.getUser()
                 //RetrofitManager.instance.createUser(output!!)
                 createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
-                timer(period = 1000){
+                timer(period = 3000 ){
                     if(RetrofitManager.instance.KUSOUNDOT!=""){
                         if(startnumber>10000)
                             cancel()
@@ -152,7 +165,7 @@ class Setsooundactivitynew : AppCompatActivity() {
 //                                e.printStackTrace()
 //                                println("file error")
 //                            }
-            }
+
             // }
             //   }
             Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
@@ -210,9 +223,8 @@ class Setsooundactivitynew : AppCompatActivity() {
         if(wavpath!=null){
             var storage = Firebase.storage
             val storageRef = storage.reference
-            var file = Uri.fromFile(File("${wavpath}"))
 
-
+            var file = Uri.fromFile(File(wavpath))
             Log.d("wavpath확인하기", wavpath)
             //var file = Uri.fromFile(File(${output}))
             val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
