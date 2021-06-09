@@ -1,8 +1,5 @@
 package kr.co.jolph.soundapp
 
-import kotlin.concurrent.timer
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -13,13 +10,16 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioFormat
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -30,6 +30,7 @@ import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.concurrent.timer
 import kotlin.math.log10
 
 @Suppress("DEPRECATION")
@@ -106,12 +107,14 @@ class Setsooundactivitynew : AppCompatActivity() {
                     mediaRecorder = MediaRecorder()
                     dateAndtime = LocalDateTime.now()
                     //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
-                    output = "${externalCacheDir!!.absolutePath}/sound.wav"
-                    Log.d("Output", "${output}")
+                    output = "${externalCacheDir!!.absolutePath}/sound.mp4"
+
+
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                     mediaRecorder?.setOutputFile(output)
+
                     number++
                     println(dateAndtime)
                     try {
@@ -212,12 +215,12 @@ class Setsooundactivitynew : AppCompatActivity() {
         if(output!=null){
             var storage = Firebase.storage
             val storageRef = storage.reference
-            var file = Uri.fromFile(File("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/sound.wav"))
+            var file = Uri.fromFile(File("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/sound.mp4"))
             val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
-            var metadata = storageMetadata {
-                contentType = "audio/wav"
-            }
-            riversRef.putFile(file, metadata)
+//            var metadata = storageMetadata {
+//                contentType = "audio/wav"
+//            }
+            riversRef.putFile(file)
         }
     }
     private fun soundDb(): Double? {
