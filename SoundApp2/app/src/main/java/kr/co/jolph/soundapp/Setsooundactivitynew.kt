@@ -108,15 +108,10 @@ class Setsooundactivitynew : AppCompatActivity() {
                 dateAndtime = LocalDateTime.now()
                 //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
                 output = "${externalCacheDir!!.absolutePath}/sound.mp4"
-
-
                 mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                 mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                 mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                 mediaRecorder?.setOutputFile(output)
-
-                number++
-                println(dateAndtime)
                 try {
                     mediaRecorder?.prepare()
                     mediaRecorder?.start()
@@ -212,15 +207,15 @@ class Setsooundactivitynew : AppCompatActivity() {
         }
     }
     fun uploadFilecloudstorage(wavpath:String){
-        if(output!=null){
+        if(wavpath!=null){
             var storage = Firebase.storage
             val storageRef = storage.reference
-            var file = Uri.fromFile(File(output))
+            var file = Uri.fromFile(File(wavpath))
             //var file = Uri.fromFile(File(${output}))
             val riversRef = storageRef.child("sounds/${file.lastPathSegment}")
-//            var metadata = storageMetadata {
-//                contentType = "audio/wav"
-//            }
+            var metadata = storageMetadata {
+                contentType = "audio/wav"
+            }
             riversRef.putFile(file)
         }
     }
