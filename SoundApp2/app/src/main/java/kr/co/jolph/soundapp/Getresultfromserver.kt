@@ -74,7 +74,7 @@ class Getresultfromserver : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
         val action2: NotificationCompat.Action =
-            NotificationCompat.Action.Builder(0, "자세히 보기", pendingIntent2).build()
+            NotificationCompat.Action.Builder(0, "자세히 보기ㅋㅋ", pendingIntent2).build()
 
         val notification: Notification = NotificationCompat.Builder(this@Getresultfromserver, channelID)
             .setContentTitle("소리 알림") // 노티 제목

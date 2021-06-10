@@ -46,7 +46,6 @@ class Setsooundactivitynew : AppCompatActivity() {
         return output
     }
     private var mediaRecorder: MediaRecorder? = null
-    private var state: Boolean = false
     var number = 100
     val mHandler: Handler = Handler()
     private val EMA_FILTER = 0.6 // EMA 필터 계산에 사용되는 상수, 기본값 0.6
@@ -56,120 +55,118 @@ class Setsooundactivitynew : AppCompatActivity() {
     var isRecordStart = false
     var presentFileName: String? = null
     var runner: Thread? = null
-//    val measure = Runnable {
-//        decibel = soundDb()
-//        println("decibel: $decibel") }
+    val measure = Runnable {
+        decibel = soundDb()
+        println("decibel: $decibel") }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew)
-//        if (runner == null) {
-//            runner = object : Thread() {
-//                override fun run() {
-//                    while (runner != null) {
-//                        try {
-//                            sleep(1000)
-//                            Log.i("Noise", "runner")
-//                        } catch (e: InterruptedException) {
-//                        }
-//                        if(isRecordStart){
-//                            mHandler.post(measure)
-//                        }
-//                    }
-//                }
-//            }
-//            (runner as Thread).start()
-//            Log.d("Noise", "start runner()")
-//        }
-        println("hello!"+startnumber)
+        if (runner == null) {
+            runner = object : Thread() {
+                override fun run() {
+                    while (runner != null) {
+                        try {
+                            sleep(1000)
+                            Log.i("Noise", "runner")
+                        } catch (e: InterruptedException) {
+                        }
+                        if(isRecordStart){
+                            mHandler.post(measure)
+                        }
+                    }
+                }
+            }
+            (runner as Thread).start()
+            Log.d("Noise", "start runner()")
+        }
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
             ActivityCompat.requestPermissions(this, permissions,0)
-        } else {
+        }
+        timer(period = 2000, initialDelay = 3000)
+        {
 
 
-                println(startnumber)
-                isRecordStart = true
-                println("isRecordStart: $isRecordStart")
-                startnumber++
-                if(startnumber>10000)
+
+            isRecordStart = true
 
 
-                state = false
-                val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
+
+            val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+            ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
 
 
-                mediaRecorder = MediaRecorder()
-                dateAndtime = LocalDateTime.now()
-                //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
-                output = "${externalCacheDir!!.absolutePath}/sound.mp4"
-                mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-                mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-                mediaRecorder?.setOutputFile(output)
-                try {
-                    mediaRecorder?.prepare()
-                    mediaRecorder?.start()
+            mediaRecorder = MediaRecorder()
+            dateAndtime = LocalDateTime.now()
+            //output = "${externalCacheDir!!.absolutePath}/${dateAndtime}.wav"
+            output = "${externalCacheDir!!.absolutePath}/sound.mp4"
+            mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+            mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            mediaRecorder?.setOutputFile(output)
+            try {
+                mediaRecorder?.prepare()
+                mediaRecorder?.start()
+                timer(period = 2000, initialDelay = 3000)
+                {
+                    mediaRecorder?.stop();     // stop recording
+                    mediaRecorder?.reset();    // set state to idle
+                    mediaRecorder?.release();  // release resources back to the system
+                    mediaRecorder = null;
+                    cancel()
+                }
+
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            if(decibel != null){
+                Log.i("Noisetest", "${decibel}")
+                if(decibel!! > 10.0){
                     timer(period = 2000, initialDelay = 3000)
                     {
-                        mediaRecorder?.stop();     // stop recording
-                        mediaRecorder?.reset();    // set state to idle
-                        mediaRecorder?.release();  // release resources back to the system
-                        mediaRecorder = null;
-                        state = true
+                        uploadFilecloudstorage(output!!)
                         cancel()
                     }
 
-                } catch (e: IllegalStateException) {
-                    e.printStackTrace()
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                    RetrofitManager.instance.getUser()
+                    createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
+                    timer(period = 3000 ){
+                        if(RetrofitManager.instance.KUSOUNDOT!=""){
+                            if(startnumber>10000)
+                                cancel()
+                            displayNotification()
+                            RetrofitManager.instance.KUSOUNDOT =""
+                        }
+                    }
+                    println("send to server! this file decibel is $decibel")
+                    println("now file: $presentFileName")
                 }
-                // if(decibel != null){
-                Log.i("Noisetest", "${decibel}")
-                // if(decibel!! > 10.0){
-            timer(period = 2000, initialDelay = 3000)
-            {
-                uploadFilecloudstorage(output!!)
-                cancel()
+                else{
+                    println("delete all file")
+                    try{
+                        val file = File(presentFileName)
+                        println("now file: $presentFileName")
+                        if(file.exists()){
+                            file.delete()
+                            println("file delete complete!")
+                        }
+                    }catch(e: Exception){
+                        e.printStackTrace()
+                        println("file error")
+                    }
+
+                }
             }
 
-                RetrofitManager.instance.getUser()
-                //RetrofitManager.instance.createUser(output!!)
-                createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
-                timer(period = 3000 ){
-                    if(RetrofitManager.instance.KUSOUNDOT!=""){
-                        if(startnumber>10000)
-                            cancel()
-                        displayNotification()
-                        RetrofitManager.instance.KUSOUNDOT =""
-                    }
-                }
-                println("send to server! this file decibel is $decibel")
-                println("now file: $presentFileName")
-                // }
-                //  else{
-                println("delete all file")
-//                            try{
-//                                val file = File(presentFileName)
-//                                println("now file: $presentFileName")
-//                                if(file.exists()){
-//                                    file.delete()
-//                                    println("file delete complete!")
-//                                }
-//                            }catch(e: Exception){
-//                                e.printStackTrace()
-//                                println("file error")
-//                            }
 
-            // }
-            //   }
-            Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
         }
+
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
                 val intent = Intent(applicationContext, MainActivity::class.java)
@@ -194,7 +191,7 @@ class Setsooundactivitynew : AppCompatActivity() {
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
         val action2: NotificationCompat.Action =
-                NotificationCompat.Action.Builder(0, "자세히 보기", pendingIntent2).build()
+                NotificationCompat.Action.Builder(0, "<실시간 영상보기>", pendingIntent2).build()
 
         val notification: Notification = NotificationCompat.Builder(this@Setsooundactivitynew, channelID)
                 .setContentTitle("소리 알림") // 노티 제목

@@ -9,11 +9,14 @@ import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import kotlinx.android.synthetic.main.activity_f_irebasestoragetest.*
 import java.io.File
+import kotlin.concurrent.timer
 
 class FIrebasestoragetest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_f_irebasestoragetest)
+
+
         fireebasetest.setOnClickListener {
             var storage = Firebase.storage
             val storageRef = storage.reference

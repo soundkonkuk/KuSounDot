@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.concurrent.timer
 
 
 @Suppress("DEPRECATION")
@@ -37,7 +38,16 @@ class Setsooundactivitynew2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew2)
+        timer(period = 2000, initialDelay = 3000)
+        {
+            timer(period = 2000, initialDelay = 3000)
+            {
+                timer(period = 2000, initialDelay = 3000)
+                {
 
+                }
+            }
+        }
         if(state){
             mediaRecorder?.stop();     // stop recording
             Toast.makeText(this, "소리저장완료!", Toast.LENGTH_SHORT).show()

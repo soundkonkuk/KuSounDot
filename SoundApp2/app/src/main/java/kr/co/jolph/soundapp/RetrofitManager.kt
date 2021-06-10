@@ -19,7 +19,6 @@ class RetrofitManager {
     private val httpCall : ApiService? = RetrofitClient.getClient("http://13.125.229.7:5000")?.create(ApiService::class.java)
     //private val httpCall : ApiService? = RetrofitClient.getClient("https://jsonplaceholder.typicode.com/")?.create(ApiService::class.java)
     fun getUser(){
-
         val call = httpCall?.getUser()
         call?.enqueue(object : retrofit2.Callback<JsonElement>{
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
