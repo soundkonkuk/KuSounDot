@@ -28,7 +28,7 @@ class Getresultfromserver : AppCompatActivity() {
     val TAG: String = "LOG"
     //var filepath = Uri.parse("/storage/emulated/0/Download/q15-ararat.jpg")
     var filepath = Uri.parse("/storage/emulated/0/Android/data/kr.co.jolph.soundapp/cache/2021-05-31T14:31:54.977.wav")
-
+    var TESTsentence1:String = "졸업프로젝트화이팅"
     companion object {
         val instance = Getresultfromserver()
     }

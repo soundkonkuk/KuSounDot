@@ -34,6 +34,7 @@ import kotlin.concurrent.timer
 import kotlin.math.log10
 
 @Suppress("DEPRECATION")
+
 class Setsooundactivitynew : AppCompatActivity() {
     private val channelID="kr.co.jolph.soundapp.channel2"
     private var notificationManager:NotificationManager?=null
@@ -41,11 +42,13 @@ class Setsooundactivitynew : AppCompatActivity() {
         val instance = Setsooundactivitynew()
     }
 
+    var showingmessage:String=""
     var output: String? = null
     fun getoutput(): String? {
         return output
     }
     private var mediaRecorder: MediaRecorder? = null
+    private var state: Boolean = false
     var number = 100
     val mHandler: Handler = Handler()
     private val EMA_FILTER = 0.6 // EMA 필터 계산에 사용되는 상수, 기본값 0.6
@@ -55,47 +58,51 @@ class Setsooundactivitynew : AppCompatActivity() {
     var isRecordStart = false
     var presentFileName: String? = null
     var runner: Thread? = null
-    val measure = Runnable {
-        decibel = soundDb()
-        println("decibel: $decibel") }
+    //val jsonString="{\"answer\":0,\"message\":\"아기울음소리가 발생했어요!"}
+//    val measure = Runnable {
+//        decibel = soundDb()
+//        println("decibel: $decibel") }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setsooundactivitynew)
-        if (runner == null) {
-            runner = object : Thread() {
-                override fun run() {
-                    while (runner != null) {
-                        try {
-                            sleep(1000)
-                            Log.i("Noise", "runner")
-                        } catch (e: InterruptedException) {
-                        }
-                        if(isRecordStart){
-                            mHandler.post(measure)
-                        }
-                    }
-                }
-            }
-            (runner as Thread).start()
-            Log.d("Noise", "start runner()")
-        }
+
+//        if (runner == null) {
+//            runner = object : Thread() {
+//                override fun run() {
+//                    while (runner != null) {
+//                        try {
+//                            sleep(1000)
+//                            Log.i("Noise", "runner")
+//                        } catch (e: InterruptedException) {
+//                        }
+//                        if(isRecordStart){
+//                            mHandler.post(measure)
+//                        }
+//                    }
+//                }
+//            }
+//            (runner as Thread).start()
+//            Log.d("Noise", "start runner()")
+//        }
+        println("hello!"+startnumber)
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
             ActivityCompat.requestPermissions(this, permissions,0)
-        }
-        timer(period = 2000, initialDelay = 3000)
-        {
+        } else {
 
 
-
+            println(startnumber)
             isRecordStart = true
+            println("isRecordStart: $isRecordStart")
+            startnumber++
+            if(startnumber>10000)
 
 
-
+                state = false
             val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
             ActivityCompat.requestPermissions(this@Setsooundactivitynew, permissions,0)
 
@@ -117,6 +124,7 @@ class Setsooundactivitynew : AppCompatActivity() {
                     mediaRecorder?.reset();    // set state to idle
                     mediaRecorder?.release();  // release resources back to the system
                     mediaRecorder = null;
+                    state = true
                     cancel()
                 }
 
@@ -125,48 +133,47 @@ class Setsooundactivitynew : AppCompatActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-            if(decibel != null){
-                Log.i("Noisetest", "${decibel}")
-                if(decibel!! > 10.0){
-                    timer(period = 2000, initialDelay = 3000)
-                    {
-                        uploadFilecloudstorage(output!!)
-                        cancel()
-                    }
-
-                    RetrofitManager.instance.getUser()
-                    createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
-                    timer(period = 3000 ){
-                        if(RetrofitManager.instance.KUSOUNDOT!=""){
-                            if(startnumber>10000)
-                                cancel()
-                            displayNotification()
-                            RetrofitManager.instance.KUSOUNDOT =""
-                        }
-                    }
-                    println("send to server! this file decibel is $decibel")
-                    println("now file: $presentFileName")
-                }
-                else{
-                    println("delete all file")
-                    try{
-                        val file = File(presentFileName)
-                        println("now file: $presentFileName")
-                        if(file.exists()){
-                            file.delete()
-                            println("file delete complete!")
-                        }
-                    }catch(e: Exception){
-                        e.printStackTrace()
-                        println("file error")
-                    }
-
-                }
+            // if(decibel != null){
+            Log.i("Noisetest", "${decibel}")
+            // if(decibel!! > 10.0){
+            timer(period = 2000, initialDelay = 3000)
+            {
+                uploadFilecloudstorage(output!!)
+                cancel()
             }
 
+            RetrofitManager.instance.getUser()
+            //RetrofitManager.instance.createUser(output!!)
+            createNotificationChannel(channelID, "Channel2", "this is a chnnel2")
+            timer(period = 3000 ){
+                if(RetrofitManager.instance.KUSOUNDOT!=""){
+                    if(startnumber>10000)
+                        cancel()
+                    displayNotification()
+                    RetrofitManager.instance.KUSOUNDOT =""
+                }
+            }
+            println("send to server! this file decibel is $decibel")
+            println("now file: $presentFileName")
+            // }
+            //  else{
+            println("delete all file")
+//                            try{
+//                                val file = File(presentFileName)
+//                                println("now file: $presentFileName")
+//                                if(file.exists()){
+//                                    file.delete()
+//                                    println("file delete complete!")
+//                                }
+//                            }catch(e: Exception){
+//                                e.printStackTrace()
+//                                println("file error")
+//                            }
 
+            // }
+            //   }
+            Toast.makeText(this, "Recording started!", Toast.LENGTH_SHORT).show()
         }
-
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
                 val intent = Intent(applicationContext, MainActivity::class.java)
@@ -191,11 +198,20 @@ class Setsooundactivitynew : AppCompatActivity() {
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
         val action2: NotificationCompat.Action =
-                NotificationCompat.Action.Builder(0, "<실시간 영상보기>", pendingIntent2).build()
+                NotificationCompat.Action.Builder(0, "자세히 보기", pendingIntent2).build()
+
+        when (RetrofitManager.instance.KUSOUNDOT)
+        {
+            "{\"answer\":3,\"message\":\"사이렌소리가 발생했어요!\"}" -> showingmessage="애애애엥! 사이렌 소리가 발생했어요!"
+            "{\"answer\":0,\"message\":\"아기울음소리가 발생했어요!\"}" -> showingmessage="응애 응애! 아기울음 소리가 발생했어요!"
+            "{\"answer\":1,\"message\":\"외침소리가 발생했어요!\"}" -> showingmessage="조심해! 목소리 외침 소리가 발생했어요!"
+            "{\"answer\":1,\"message\":\"폭발음소리가 발생했어요!\"}" -> showingmessage="펑! 폭발음 소리가 발생했어요!"
+            else -> showingmessage="소리발생! 위험소리일 확률은 50% 미만입니다."
+        }
 
         val notification: Notification = NotificationCompat.Builder(this@Setsooundactivitynew, channelID)
                 .setContentTitle("소리 알림") // 노티 제목
-                .setContentText(RetrofitManager.instance.KUSOUNDOT) // 노티 내용
+                .setContentText(showingmessage) // 노티 내용
                 .setSmallIcon(android.R.drawable.ic_dialog_info) //아이콘이미지
                 .setAutoCancel(true) // 사용자가 알림을 탭하면 자동으로 알림을 삭제합니다.
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

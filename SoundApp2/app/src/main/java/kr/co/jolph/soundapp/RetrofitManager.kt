@@ -12,7 +12,7 @@ class RetrofitManager {
     private val channelID="kr.co.jolph.soundapp.channel2"
     val TAG: String = "LOG"
     var KUSOUNDOT: String =""
-
+    var KUSOUNDOTNUM: Int = 3
     companion object {
         val instance = RetrofitManager()
     }
@@ -28,6 +28,7 @@ class RetrofitManager {
                 Log.d(TAG, "RetrofitManager - getTodo() - onResponse() called / response: $response")
                 Log.d(TAG, "response.body : ${response.body()}")
                 KUSOUNDOT = response.body().toString()
+                KUSOUNDOTNUM+=1
                 print(KUSOUNDOT)
                 Log.d(TAG, KUSOUNDOT)
                 anan = KUSOUNDOT
