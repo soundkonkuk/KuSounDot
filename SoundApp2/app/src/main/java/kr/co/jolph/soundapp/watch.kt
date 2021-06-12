@@ -31,7 +31,7 @@ class watch : Fragment(), CapabilityClient.OnCapabilityChangedListener
     companion object {
         //parameters
         private val TAG: String? = "watch"
-        private const val Welcom_Message = "소리녹음 모바일 앱에 오신걸 환영합니다!\n\n"
+        private const val Welcom_Message = "KUSOUNDOT 모바일 앱에 오신걸 환영합니다!\n\n"
         private const val Check_Message = "${Welcom_Message}시계연결을 확인중입니다..."
         private const val No_Device = "${Welcom_Message}핸드폰과 연결되어 있는 시계가 없습니다. \n\n 시계를 연결하고 소리알림을 어디서든 받아보세요!"
         private const val Missing_All_Message = """${Welcom_Message}시계에 소리녹음 웨어앱이 설치되어있지 않습니다.아래 버튼을 클릭해서 웨어앱을 설치해 주세요!"""

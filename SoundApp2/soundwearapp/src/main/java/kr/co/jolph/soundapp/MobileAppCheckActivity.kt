@@ -120,12 +120,18 @@ class MobileAppCheckActivity : FragmentActivity() ,
             //소리권한 액티비티로 이동 + 찾은 Phone Node도 전달
             val phoneNode: String = mAndroidPhoneNodeWithApp!!.id
 
-            val soundIntent: Intent = Intent(this@MobileAppCheckActivity, SoundAuthorityActivity::class.java)
-            soundIntent.putExtra("Phone Node", phoneNode)
-            startActivity(soundIntent)
+            val handler = Handler()
+            handler.postDelayed({
+                val soundIntent: Intent = Intent(this@MobileAppCheckActivity, SoundAuthorityActivity::class.java)
+                soundIntent.putExtra("Phone Node", phoneNode)
+                startActivity(soundIntent)
 
-            //웨어 앱에서 해당 액티비티 종료
-            finish()
+                //웨어 앱에서 해당 액티비티 종료
+                finish()
+
+            }, 1300) //딜레이 타임 조절
+
+
 
         } else {
             Log.d(TAG, Missing_All_Message)
@@ -133,6 +139,7 @@ class MobileAppCheckActivity : FragmentActivity() ,
             mRemoteOpenButton!!.visibility = View.VISIBLE
         }
     }
+
 
     //웨어와 연결된 휴대폰 종류에 따라 다른 스토어앱 open
     private fun openAppInStoreOnPhone() {
