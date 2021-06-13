@@ -205,7 +205,7 @@ class Setsooundactivitynew : AppCompatActivity() {
             "{\"answer\":3,\"message\":\"사이렌소리가 발생했어요!\"}" -> showingmessage="애애애엥! 사이렌 소리가 발생했어요!"
             "{\"answer\":0,\"message\":\"아기울음소리가 발생했어요!\"}" -> showingmessage="응애 응애! 아기울음 소리가 발생했어요!"
             "{\"answer\":1,\"message\":\"외침소리가 발생했어요!\"}" -> showingmessage="조심해! 목소리 외침 소리가 발생했어요!"
-            "{\"answer\":1,\"message\":\"폭발음소리가 발생했어요!\"}" -> showingmessage="펑! 폭발음 소리가 발생했어요!"
+            "{\"answer\":2,\"message\":\"폭발음소리가 발생했어요!\"}" -> showingmessage="펑! 폭발음 소리가 발생했어요!"
             else -> showingmessage="소리발생! 위험소리일 확률은 50% 미만입니다."
         }
 
